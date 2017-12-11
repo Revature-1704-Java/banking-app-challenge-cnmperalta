@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class Account implements Serializable {
+public class Account implements Serializable, BankAccount {
     private static final long serialVersionUID = 42L;
     private int accountNumber;
     private String accountName;

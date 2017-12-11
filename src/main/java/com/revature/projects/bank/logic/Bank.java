@@ -31,7 +31,7 @@ public class Bank {
                 System.out.println("Enter your four-digit PIN: ");
                 pin = sc.nextLine();
             } while(!isPINValid(pin));
-            account = new Account(accountDAO.getNumberOfAccounts(), accountName, pin, new BigDecimal(500, MathContext.UNLIMITED));
+            account = new Account(accountDAO.getNumberOfAccountsOpened(), accountName, pin, new BigDecimal(500, MathContext.UNLIMITED));
             accountDAO.saveAccount(account);
         } else if(account == null) {
             System.out.println("You do not have an account with us yet!"); 

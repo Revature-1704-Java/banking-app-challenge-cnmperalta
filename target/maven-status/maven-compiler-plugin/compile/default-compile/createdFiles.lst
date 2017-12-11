@@ -1,6 +1,7 @@
-com\revature\projects\bank\entities\Account.class
 com\revature\projects\bank\logic\Bank.class
-com\revature\projects\bank\dao\AccountDAO.class
-com\revature\projects\bank\logic\Bank$1.class
 com\revature\projects\bank\logic\BankAction.class
 com\revature\projects\bank\Main.class
+com\revature\projects\bank\entities\Account.class
+com\revature\projects\bank\entities\BankAccount.class
+com\revature\projects\bank\dao\AccountDAO.class
+com\revature\projects\bank\logic\Bank$1.class

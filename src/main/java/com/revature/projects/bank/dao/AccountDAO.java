@@ -18,9 +18,11 @@ import com.revature.projects.bank.entities.Account;
 public class AccountDAO {
     private String accountListFilename;
     private Map<String, Integer> accountList;
+    private int numberOfAccountsOpened;
 
     public AccountDAO(String accountListFilename) {
         this.accountListFilename = accountListFilename;
+        numberOfAccountsOpened = 0;
         accountList = new HashMap<String, Integer>();
         parseAccountListFile();
     }
@@ -31,6 +33,9 @@ public class AccountDAO {
         if(accountListFile.exists()) {
             try(BufferedReader in = new BufferedReader(new FileReader(accountListFile))) {
                 String temp;
+
+                temp = in.readLine();
+                numberOfAccountsOpened = Integer.parseInt(temp);
 
                 while((temp = in.readLine()) != null) {
                     String[] strs = temp.split("\\s");
@@ -47,6 +52,10 @@ public class AccountDAO {
 
     public int getNumberOfAccounts() {
         return accountList.size();
+    }
+
+    public int getNumberOfAccountsOpened() {
+        return numberOfAccountsOpened;
     }
 
     public Account getAccount(String accountName) {
@@ -66,8 +75,10 @@ public class AccountDAO {
     }
 
     public void saveAccount(Account account) {
-        if(!accountList.containsKey(account.getAccountName()))
+        if(!accountList.containsKey(account.getAccountName())) {
             accountList.put(account.getAccountName(), account.getAccountNumber());
+            numberOfAccountsOpened++;
+        }
         
         try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(account.getAccountName() + ".ser"))) {
             out.writeObject(account);
@@ -78,6 +89,7 @@ public class AccountDAO {
 
     public void updateFileRecords() {
         try(BufferedWriter out = new BufferedWriter(new FileWriter(accountListFilename))) {
+            out.write(numberOfAccountsOpened + "\n");
             for(String key : accountList.keySet())
                 out.write(accountList.get(key) + " " + key + "\n");
         } catch(IOException e) {
